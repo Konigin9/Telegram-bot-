@@ -18,7 +18,7 @@ from config import BOT_TOKEN
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "📸 OCR Bot Ready!\n\n"
-        "Bas image bhejo, main text nikaal dunga."
+        "send me images,I will extract texts."
     )
 
 # Handle image
@@ -32,7 +32,7 @@ async def image_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         text = pytesseract.image_to_string(Image.open(image_path))
         if text.strip() == "":
-            text = "❌ Koi text detect nahi hua."
+            text = "❌ No text detected."
         await update.message.reply_text(f"📝 Extracted Text:\n\n{text}")
     except Exception as e:
         await update.message.reply_text("❌ OCR failed.")
